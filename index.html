@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>北京亲子游 · 2026年3月28日-31日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+    background: #f5f7fa; color: #1a1a2e; line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  /* Hero */
+  .hero {
+    position: relative; padding: 50px 20px 60px;
+    background: linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #42a5f5 100%);
+    text-align: center; color: #fff;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 30px; padding: 5px 18px;
+    font-size: 12px; letter-spacing: 2px; margin-bottom: 14px;
+  }
+  .hero h1 { font-size: 28px; font-weight: 700; letter-spacing: 3px; margin-bottom: 8px; }
+  .hero-sub { font-size: 14px; opacity: 0.9; }
+  .hero-stats { display: flex; gap: 24px; justify-content: center; margin-top: 16px; }
+  .hero-stat .num { font-size: 24px; font-weight: 700; }
+  .hero-stat .label { font-size: 11px; opacity: 0.8; }
+  .hero-wave { position: absolute; bottom: -1px; left: 0; width: 100%; }
+
+  /* Nav */
+  .day-nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .day-nav::-webkit-scrollbar { display: none; }
+  .day-nav a {
+    flex-shrink: 0; padding: 12px 16px;
+    text-decoration: none; color: #666;
+    font-size: 13px; font-weight: 500;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap; transition: all 0.3s;
+  }
+  .day-nav a.active { color: #1976d2; border-bottom-color: #1976d2; background: #f0f7ff; }
+
+  /* Container */
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+
+  /* Section */
+  .section-header { text-align: center; margin-bottom: 20px; }
+  .section-header h2 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .section-header p { color: #888; font-size: 13px; }
+  .overview-section { padding: 30px 0 20px; }
+  .map-wrap {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    border: 1px solid #e8ecf1;
+  }
+  .map-box { height: 350px; width: 100%; }
+
+  /* Day Section */
+  .day-section { padding: 30px 0; scroll-margin-top: 50px; }
+  .day-section:nth-child(even) { background: #fff; }
+  .day-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .day-number {
+    width: 56px; height: 56px; border-radius: 14px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; flex-shrink: 0;
+  }
+  .day-number .d { font-size: 9px; letter-spacing: 1px; opacity: 0.9; }
+  .day-number .n { font-size: 22px; line-height: 1; margin-top: 1px; }
+  .c1 .day-number { background: linear-gradient(135deg, #e53935, #ff7043); }
+  .c2 .day-number { background: linear-gradient(135deg, #1565c0, #42a5f5); }
+  .c3 .day-number { background: linear-gradient(135deg, #2e7d32, #66bb6a); }
+  .c4 .day-number { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
+  .day-header-text h3 { font-size: 18px; font-weight: 600; }
+  .day-header-text .meta { color: #888; font-size: 12px; margin-top: 3px; }
+
+  /* Map Card */
+  .map-card {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border: 1px solid #e8ecf1; background: #fff;
+    margin-bottom: 16px;
+  }
+  .map-card-title {
+    padding: 12px 14px; font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    border-bottom: 1px solid #f0f0f0; color: #333;
+  }
+  .day-map { height: 280px; width: 100%; }
+  .route-badges {
+    padding: 8px 14px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+    border-top: 1px solid #f0f0f0; background: #fafbfc;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 3px;
+    padding: 4px 10px; border-radius: 16px;
+    font-size: 11px; font-weight: 500;
+  }
+  .badge.route { background: #e3f2fd; color: #1565c0; }
+  .badge.dist { background: #fce4ec; color: #c62828; }
+  .badge.transit { background: #e8f5e9; color: #2e7d32; }
+
+  /* Schedule */
+  .sched-card {
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border: 1px solid #e8ecf1; background: #fff;
+  }
+  .sched-title {
+    padding: 12px 14px; font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+    border-bottom: 1px solid #f0f0f0; color: #333;
+  }
+  .sched-list { list-style: none; }
+  .sched-item {
+    padding: 12px 14px; border-bottom: 1px solid #f5f5f5;
+    position: relative;
+  }
+  .sched-item:last-child { border-bottom: none; }
+  .sched-item::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+  }
+  .c1 .sched-item::before { background: #ff7043; }
+  .c2 .sched-item::before { background: #42a5f5; }
+  .c3 .sched-item::before { background: #66bb6a; }
+  .c4 .sched-item::before { background: #ab47bc; }
+  .s-time { font-size: 12px; color: #1976d2; font-weight: 600; margin-bottom: 2px; }
+  .s-event { font-size: 14px; font-weight: 600; color: #1a1a2e; margin-bottom: 2px; }
+  .s-dest { font-size: 12px; color: #666; margin-bottom: 4px; }
+  .s-dest .hl { color: #e53935; font-weight: 500; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 2px;
+    padding: 2px 7px; border-radius: 8px; font-size: 10px;
+  }
+  .tag.tr { background: #f0f7ff; color: #1976d2; }
+  .tag.it { background: #fff3e0; color: #e65100; }
+
+  /* Footer */
+  footer {
+    background: #1a1a2e; color: rgba(255,255,255,0.7);
+    padding: 30px 16px; text-align: center; font-size: 12px;
+  }
+  footer .brand { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+
+  /* Desktop */
+  @media (min-width: 768px) {
+    .hero { padding: 60px 20px 70px; }
+    .hero h1 { font-size: 42px; }
+    .hero-sub { font-size: 17px; }
+    .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .map-card { margin-bottom: 0; }
+    .map-box { height: 480px; }
+    .day-map { height: 400px; }
+    .day-nav a { padding: 14px 24px; font-size: 14px; }
+    .section-header h2 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">✈️ Family Trip 2026</div>
+  <h1>北京亲子游</h1>
+  <p class="hero-sub">2026.3.28（周六）— 3.31（周二）· 深圳往返</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">4</div><div class="label">天行程</div></div>
+    <div class="hero-stat"><div class="num">7</div><div class="label">个景点</div></div>
+    <div class="hero-stat"><div class="num">2</div><div class="label">次飞行</div></div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 80" fill="none"><path d="M0 30C360 60 720 0 1080 30C1260 45 1380 60 1440 60V80H0V30Z" fill="#f5f7fa"/></svg>
+</div>
+
+<!-- Nav -->
+<nav class="day-nav" id="topnav">
+  <a href="#overview" class="active">🗺️ 总览</a>
+  <a href="#day1">🏛️ D1·3.28</a>
+  <a href="#day2">🌄 D2·3.29</a>
+  <a href="#day3">🎢 D3·3.30</a>
+  <a href="#day4">🐼 D4·3.31</a>
+</nav>
+
+<!-- Overview Map -->
+<section class="overview-section" id="overview">
+  <div class="container">
+    <div class="section-header">
+      <h2>🗺️ 全景地图 · 目的地总览</h2>
+      <p>红色标注为Excel红色字体标记的重点目的地</p>
+    </div>
+    <div class="map-wrap">
+      <div id="overview-map" class="map-box"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Day 1 -->
+<section class="day-section c1" id="day1">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number"><span class="d">DAY</span><span class="n">1</span></div>
+      <div class="day-header-text">
+        <h3>3.28（周六）· 抵达 & 故宫</h3>
+        <div class="meta">深航ZH9101 · 07:00起飞 · 10:15抵达T3</div>
+      </div>
+    </div>
+    <div class="day-grid">
+      <div class="map-card">
+        <div class="map-card-title">📍 Day 1 路线</div>
+        <div id="map-day1" class="day-map"></div>
+        <div class="route-badges">
+          <span class="badge route">🛬 机场→酒店</span>
+          <span class="badge dist">29km</span>
+          <span class="badge transit">🚇 约1h</span>
+        </div>
+        <div class="route-badges">
+          <span class="badge route">🏛️ 酒店→故宫</span>
+          <span class="badge dist">1.2km</span>
+          <span class="badge transit">🚶 5min</span>
+        </div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-title">📋 Day 1 行程</div>
+        <ul class="sched-list">
+          <li class="sched-item"><div class="s-time">🕓 04:30–05:30</div><div class="s-event">出发去机场</div><div class="s-dest">📍 深圳宝安T3</div><div class="tags"><span class="tag tr">🚗 网约车</span><span class="tag it">🎒 身份证·户口本·充电宝</span></div></li>
+          <li class="sched-item"><div class="s-time">✈️ 07:00–10:15</div><div class="s-event">飞行 深圳→北京</div><div class="s-dest">📍 深圳→首都机场T3</div><div class="tags"><span class="tag tr">✈️ ZH9101</span><span class="tag it">🎒 绘本/平板·口罩</span></div></li>
+          <li class="sched-item"><div class="s-time">🕙 10:15–11:30</div><div class="s-event">机场→酒店入住</div><div class="s-dest">📍 <span class="hl">首都机场→贵宾楼饭店</span></div><div class="tags"><span class="tag tr">🚇 地铁/网约车</span><span class="tag it">🎒 行李箱</span></div></li>
+          <li class="sched-item"><div class="s-time">🕦 11:30–14:30</div><div class="s-event">午餐 & 休息</div><div class="s-dest">📍 酒店附近</div><div class="tags"><span class="tag it">🎒 水杯·防晒帽</span></div></li>
+          <li class="sched-item"><div class="s-time">🕝 14:30–17:30</div><div class="s-event">故宫游览</div><div class="s-dest">📍 <span class="hl">故宫博物院</span> · 中线+珍宝馆</div><div class="tags"><span class="tag tr">🚗 1.2KM 5分钟</span><span class="tag it">🎒 身份证·N95·防花粉眼罩</span></div></li>
+          <li class="sched-item"><div class="s-time">🕓 16:00–20:00</div><div class="s-event">晚餐 & 闲逛</div><div class="s-dest">📍 王府井/前门</div><div class="tags"><span class="tag tr">🚶 步行10min</span><span class="tag it">🎒 水杯·现金</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Day 2 -->
+<section class="day-section c2" id="day2">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number"><span class="d">DAY</span><span class="n">2</span></div>
+      <div class="day-header-text">
+        <h3>3.29（周日）· 升旗 & 颐和园</h3>
+        <div class="meta">升旗05:04 · 景山/颐和园二选一 · 前门美食</div>
+      </div>
+    </div>
+    <div class="day-grid">
+      <div class="map-card">
+        <div class="map-card-title">📍 Day 2 路线</div>
+        <div id="map-day2" class="day-map"></div>
+        <div class="route-badges">
+          <span class="badge route">🏨 酒店→天安门</span>
+          <span class="badge dist">0.8km</span>
+          <span class="badge transit">🚶 13min</span>
+        </div>
+        <div class="route-badges">
+          <span class="badge route">🏯 酒店→颐和园</span>
+          <span class="badge dist">9.6km</span>
+          <span class="badge transit">🚗 21min</span>
+        </div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-title">📋 Day 2 行程</div>
+        <ul class="sched-list">
+          <li class="sched-item"><div class="s-time">🕔 05:00–06:00</div><div class="s-event">天安门看升旗</div><div class="s-dest">📍 天安门东红墙安检02</div><div class="tags"><span class="tag tr">🚶 768米/地铁1站</span><span class="tag it">🎒 身份证·口罩</span></div></li>
+          <li class="sched-item"><div class="s-time">🕕 06:10–09:30</div><div class="s-event">回酒店补觉+早餐</div><div class="s-dest">📍 贵宾楼饭店</div></li>
+          <li class="sched-item"><div class="s-time">🕙 10:00–12:00</div><div class="s-event">景山公园⚡二选一</div><div class="s-dest">📍 <span class="hl">景山公园</span> · 万春亭俯瞰故宫</div><div class="tags"><span class="tag tr">🚶 步行/公交</span><span class="tag it">🎒 相机·零食</span></div></li>
+          <li class="sched-item"><div class="s-time">🕙 10:00–12:00</div><div class="s-event">颐和园⚡二选一</div><div class="s-dest">📍 <span class="hl">颐和园</span> · 东宫门→长廊→昆明湖</div><div class="tags"><span class="tag tr">🚗 9.6km 21min</span><span class="tag it">🎒 预约码·水杯</span></div></li>
+          <li class="sched-item"><div class="s-time">🕛 12:00–13:30</div><div class="s-event">午餐</div><div class="s-dest">📍 景区附近</div></li>
+          <li class="sched-item"><div class="s-time">🕜 13:30–16:30</div><div class="s-event">颐和园（续）</div><div class="s-dest">📍 颐和园 · 可坐游船</div></li>
+          <li class="sched-item"><div class="s-time">🕔 17:00–19:30</div><div class="s-event">逛吃晚餐</div><div class="s-dest">📍 前门大街 · 炸酱面/烤鸭</div><div class="tags"><span class="tag tr">🚶 步行/网约车</span></div></li>
+          <li class="sched-item"><div class="s-time">🕗 20:00–21:30</div><div class="s-event">回酒店休息</div><div class="s-dest">📍 准备次日环球影城</div><div class="tags"><span class="tag it">🎒 环球门票·儿童防晒</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Day 3 -->
+<section class="day-section c3" id="day3">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number"><span class="d">DAY</span><span class="n">3</span></div>
+      <div class="day-header-text">
+        <h3>3.30（周一）· 环球影城</h3>
+        <div class="meta">哈利波特·变形金刚·小黄人·功夫熊猫</div>
+      </div>
+    </div>
+    <div class="day-grid">
+      <div class="map-card">
+        <div class="map-card-title">📍 Day 3 路线</div>
+        <div id="map-day3" class="day-map"></div>
+        <div class="route-badges">
+          <span class="badge route">🏨 酒店→环球度假区</span>
+          <span class="badge dist">26km</span>
+          <span class="badge transit">🚇 50min（20站）</span>
+        </div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-title">📋 Day 3 行程</div>
+        <ul class="sched-list">
+          <li class="sched-item"><div class="s-time">🕗 08:30–09:00</div><div class="s-event">酒店→环球影城</div><div class="s-dest">📍 王府井→环球度假区站</div><div class="tags"><span class="tag tr">🚇 地铁20站</span><span class="tag it">🎒 门票·推车·水杯</span></div></li>
+          <li class="sched-item"><div class="s-time">🎢 09:00–20:00</div><div class="s-event">环球影城全天</div><div class="s-dest">📍 <span class="hl">北京环球度假区</span></div><div class="tags"><span class="tag tr">🧙 哈利波特</span><span class="tag tr">🤖 变形金刚</span><span class="tag tr">🍌 小黄人</span><span class="tag tr">🐼 功夫熊猫</span></div><div class="tags"><span class="tag it">🎒 防晒·N95·充电宝·零食</span></div></li>
+          <li class="sched-item"><div class="s-time">🕗 20:00–21:30</div><div class="s-event">回酒店休息</div><div class="s-dest">📍 地铁返回</div><div class="tags"><span class="tag it">🎒 换洗衣物</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Day 4 -->
+<section class="day-section c4" id="day4">
+  <div class="container">
+    <div class="day-header">
+      <div class="day-number"><span class="d">DAY</span><span class="n">4</span></div>
+      <div class="day-header-text">
+        <h3>3.31（周二）· 动物园 & 返程</h3>
+        <div class="meta">动物园🐼 · 南航CZ3154 · 18:00飞深圳</div>
+      </div>
+    </div>
+    <div class="day-grid">
+      <div class="map-card">
+        <div class="map-card-title">📍 Day 4 路线</div>
+        <div id="map-day4" class="day-map"></div>
+        <div class="route-badges">
+          <span class="badge route">🏨 酒店→动物园</span>
+          <span class="badge dist">5.5km</span>
+          <span class="badge transit">🚇 20min</span>
+        </div>
+        <div class="route-badges">
+          <span class="badge route">🐼 动物园→大兴机场</span>
+          <span class="badge dist">48km</span>
+          <span class="badge transit">🚇 约60min</span>
+        </div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-title">📋 Day 4 行程</div>
+        <ul class="sched-list">
+          <li class="sched-item"><div class="s-time">🕗 08:00–09:00</div><div class="s-event">早餐 & 退房</div><div class="s-dest">📍 退房·邮寄行李</div><div class="tags"><span class="tag it">🎒 全部证件·行李</span></div></li>
+          <li class="sched-item"><div class="s-time">🐼 09:00–12:00</div><div class="s-event">北京动物园</div><div class="s-dest">📍 <span class="hl">北京动物园</span> · 看熊猫</div><div class="tags"><span class="tag tr">🚇 王府井→动物园 9站</span><span class="tag it">🎒 零食·相机·帽子</span></div></li>
+          <li class="sched-item"><div class="s-time">🕛 12:00–15:00</div><div class="s-event">午餐+休息</div><div class="s-dest">📍 动物园附近</div></li>
+          <li class="sched-item"><div class="s-time">🕒 15:00–16:30</div><div class="s-event">前往大兴机场</div><div class="s-dest">📍 动物园→<span class="hl">大兴机场</span></div><div class="tags"><span class="tag tr">🚇 4号→19号→大兴线</span><span class="tag it">🎒 行李·身份证</span></div></li>
+          <li class="sched-item"><div class="s-time">🕟 16:40–17:40</div><div class="s-event">值机+安检</div><div class="s-dest">📍 <span class="hl">大兴国际机场</span></div><div class="tags"><span class="tag tr">✈️ CZ3154 18:00飞</span><span class="tag it">🎒 登机牌·户口本</span></div></li>
+          <li class="sched-item"><div class="s-time">✈️ 18:00–21:30</div><div class="s-event">飞行返程</div><div class="s-dest">📍 北京→深圳宝安T3</div><div class="tags"><span class="tag tr">✈️ 3.5小时</span><span class="tag it">🎒 绘本·口罩</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">🏙️ 北京亲子游 · 行程规划</div>
+  <p>2026年3月28日—31日 · 深圳往返</p>
+  <p style="margin-top:6px;font-size:11px;opacity:0.5;">地图服务由腾讯地图提供</p>
+</footer>
+
+<!-- 腾讯地图 JS API v2 (非GL版，微信兼容) -->
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=EPGBZ-W3ARM-4FR6E-6SD5Y-C73UK-ADBZX"></script>
+<script>
+var P = {
+  capitalAirport: { name: '首都机场T3', lat: 40.0799, lng: 116.6031, red: 0 },
+  hotel:          { name: '北京贵宾楼饭店', lat: 39.9135, lng: 116.4070, red: 1 },
+  forbidden:      { name: '故宫博物院', lat: 39.9163, lng: 116.3972, red: 1 },
+  tiananmen:      { name: '天安门', lat: 39.9087, lng: 116.3975, red: 0 },
+  jingshan:       { name: '景山公园', lat: 39.9249, lng: 116.3963, red: 1 },
+  summerPalace:   { name: '颐和园', lat: 39.9998, lng: 116.2755, red: 1 },
+  universal:      { name: '北京环球度假区', lat: 39.8433, lng: 116.6815, red: 1 },
+  zoo:            { name: '北京动物园', lat: 39.9406, lng: 116.3380, red: 1 },
+  daxingAirport:  { name: '大兴国际机场', lat: 39.5098, lng: 116.4107, red: 1 },
+  wangfujing:     { name: '王府井', lat: 39.9142, lng: 116.4103, red: 0 },
+  qianmen:        { name: '前门大街', lat: 39.8994, lng: 116.3976, red: 0 }
+};
+
+function addPin(map, key) {
+  var p = P[key];
+  var pos = new qq.maps.LatLng(p.lat, p.lng);
+  var marker = new qq.maps.Marker({
+    position: pos,
+    map: map,
+    animation: qq.maps.MarkerAnimation.DROP
+  });
+  // 红色标记用红色图标
+  if (p.red) {
+    marker.setIcon(new qq.maps.MarkerImage(
+      'https://apis.map.qq.com/tools/poimarker?type=1&marker=1&color=FF3333',
+      null, null, null, new qq.maps.Size(28, 40)
+    ));
+  }
+  var info = new qq.maps.InfoWindow({ map: map });
+  qq.maps.event.addListener(marker, 'click', function() {
+    info.open();
+    info.setContent('<div style="padding:6px;font-size:13px;font-weight:600;">' + p.name + (p.red ? ' 📌' : '') + '</div>');
+    info.setPosition(pos);
+  });
+  // 添加文字标签
+  var label = new qq.maps.Label({
+    position: pos,
+    map: map,
+    content: p.name,
+    style: {
+      color: p.red ? '#e53935' : '#1976d2',
+      fontSize: '11px',
+      fontWeight: '600',
+      backgroundColor: 'rgba(255,255,255,0.92)',
+      border: '1px solid ' + (p.red ? '#e53935' : '#1976d2'),
+      borderRadius: '4px',
+      padding: '2px 6px'
+    },
+    offset: new qq.maps.Size(0, -44)
+  });
+  return marker;
+}
+
+function drawLine(map, points, color, dashed) {
+  var path = points.map(function(p) { return new qq.maps.LatLng(p[0], p[1]); });
+  new qq.maps.Polyline({
+    path: path,
+    map: map,
+    strokeColor: new qq.maps.Color(color),
+    strokeWeight: 5,
+    strokeDashStyle: dashed ? 'dash' : 'solid'
+  });
+}
+
+function addDistLabel(map, points, text) {
+  var mid = Math.floor(points.length / 2);
+  new qq.maps.Label({
+    position: new qq.maps.LatLng(points[mid][0], points[mid][1]),
+    map: map,
+    content: text,
+    style: {
+      color: '#fff',
+      fontSize: '11px',
+      fontWeight: '600',
+      backgroundColor: 'rgba(25,118,210,0.85)',
+      border: '1px solid #1565c0',
+      borderRadius: '10px',
+      padding: '2px 8px'
+    }
+  });
+}
+
+function fitMap(map, keys) {
+  var b = new qq.maps.LatLngBounds();
+  keys.forEach(function(k) { b.extend(new qq.maps.LatLng(P[k].lat, P[k].lng)); });
+  map.fitBounds(b);
+}
+
+// ===== 全景地图 =====
+var om = new qq.maps.Map(document.getElementById('overview-map'), {
+  center: new qq.maps.LatLng(39.85, 116.45),
+  zoom: 9,
+  mapTypeControl: false
+});
+var allKeys = Object.keys(P);
+allKeys.forEach(function(k) { addPin(om, k); });
+fitMap(om, allKeys);
+
+// ===== Day 1 =====
+var m1 = new qq.maps.Map(document.getElementById('map-day1'), {
+  center: new qq.maps.LatLng(39.96, 116.5), zoom: 11, mapTypeControl: false
+});
+['capitalAirport','hotel','forbidden','wangfujing'].forEach(function(k) { addPin(m1, k); });
+var r1a = [[40.0799,116.6031],[40.065,116.58],[40.002,116.435],[39.947,116.42],[39.9135,116.407]];
+drawLine(m1, r1a, '#e53935'); addDistLabel(m1, r1a, '29 km');
+var r1b = [[39.9135,116.407],[39.915,116.402],[39.9163,116.3972]];
+drawLine(m1, r1b, '#ff9800'); addDistLabel(m1, r1b, '1.2 km');
+var r1c = [[39.9163,116.3972],[39.9142,116.4103]];
+drawLine(m1, r1c, '#4caf50');
+fitMap(m1, ['capitalAirport','hotel','forbidden','wangfujing']);
+
+// ===== Day 2 =====
+var m2 = new qq.maps.Map(document.getElementById('map-day2'), {
+  center: new qq.maps.LatLng(39.95, 116.38), zoom: 12, mapTypeControl: false
+});
+['hotel','tiananmen','jingshan','summerPalace','qianmen'].forEach(function(k) { addPin(m2, k); });
+var r2a = [[39.9135,116.407],[39.91,116.402],[39.9087,116.3975]];
+drawLine(m2, r2a, '#1565c0'); addDistLabel(m2, r2a, '0.8 km');
+var r2b = [[39.9135,116.407],[39.92,116.40],[39.9249,116.3963]];
+drawLine(m2, r2b, '#ff9800'); addDistLabel(m2, r2b, '1.5 km');
+var r2c = [[39.9135,116.407],[39.93,116.38],[39.96,116.34],[39.98,116.30],[39.9998,116.2755]];
+drawLine(m2, r2c, '#4caf50', true); addDistLabel(m2, r2c, '9.6 km');
+fitMap(m2, ['hotel','tiananmen','jingshan','summerPalace','qianmen']);
+
+// ===== Day 3 =====
+var m3 = new qq.maps.Map(document.getElementById('map-day3'), {
+  center: new qq.maps.LatLng(39.88, 116.55), zoom: 11, mapTypeControl: false
+});
+['hotel','universal'].forEach(function(k) { addPin(m3, k); });
+var r3 = [[39.9135,116.407],[39.91,116.43],[39.90,116.48],[39.88,116.55],[39.86,116.62],[39.8433,116.6815]];
+drawLine(m3, r3, '#2e7d32'); addDistLabel(m3, r3, '26 km');
+fitMap(m3, ['hotel','universal']);
+
+// ===== Day 4 =====
+var m4 = new qq.maps.Map(document.getElementById('map-day4'), {
+  center: new qq.maps.LatLng(39.72, 116.40), zoom: 10, mapTypeControl: false
+});
+['hotel','zoo','daxingAirport'].forEach(function(k) { addPin(m4, k); });
+var r4a = [[39.9135,116.407],[39.93,116.38],[39.9406,116.338]];
+drawLine(m4, r4a, '#6a1b9a'); addDistLabel(m4, r4a, '5.5 km');
+var r4b = [[39.9406,116.338],[39.92,116.35],[39.85,116.37],[39.75,116.39],[39.65,116.40],[39.5098,116.4107]];
+drawLine(m4, r4b, '#e91e63'); addDistLabel(m4, r4b, '48 km');
+fitMap(m4, ['hotel','zoo','daxingAirport']);
+
+// ===== Nav =====
+var navLinks = document.querySelectorAll('.day-nav a');
+var sections = document.querySelectorAll('.overview-section, .day-section');
+window.addEventListener('scroll', function() {
+  var cur = '';
+  for (var i = 0; i < sections.length; i++) {
+    if (window.pageYOffset >= sections[i].offsetTop - 80) cur = sections[i].id;
+  }
+  for (var j = 0; j < navLinks.length; j++) {
+    if (navLinks[j].getAttribute('href') === '#' + cur) {
+      navLinks[j].classList.add('active');
+    } else {
+      navLinks[j].classList.remove('active');
+    }
+  }
+});
+</script>
+</body>
+</html>
