@@ -6,171 +6,123 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>北京亲子游 · 2026年3月28日-31日</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
-    background: #f5f7fa; color: #1a1a2e; line-height: 1.6;
-    -webkit-text-size-adjust: 100%;
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue','Microsoft YaHei',sans-serif;background:#f5f7fa;color:#1a1a2e;line-height:1.6;-webkit-text-size-adjust:100%}
+  .hero{position:relative;padding:45px 20px 55px;background:linear-gradient(135deg,#0d47a1,#1976d2 50%,#42a5f5);text-align:center;color:#fff}
+  .hero-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:30px;padding:4px 16px;font-size:11px;letter-spacing:2px;margin-bottom:12px}
+  .hero h1{font-size:26px;font-weight:700;letter-spacing:3px;margin-bottom:6px}
+  .hero-sub{font-size:13px;opacity:.9}
+  .hero-stats{display:flex;gap:20px;justify-content:center;margin-top:14px}
+  .hero-stat .num{font-size:22px;font-weight:700}
+  .hero-stat .label{font-size:10px;opacity:.8}
+  .hero-wave{position:absolute;bottom:-1px;left:0;width:100%}
+  .day-nav{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .day-nav::-webkit-scrollbar{display:none}
+  .day-nav a{flex-shrink:0;padding:11px 14px;text-decoration:none;color:#666;font-size:12px;font-weight:500;border-bottom:3px solid transparent;white-space:nowrap}
+  .day-nav a.active{color:#1976d2;border-bottom-color:#1976d2;background:#f0f7ff}
+  .container{max-width:1280px;margin:0 auto;padding:0 14px}
+  .section-header{text-align:center;margin-bottom:18px}
+  .section-header h2{font-size:19px;font-weight:600;margin-bottom:4px}
+  .section-header p{color:#888;font-size:12px}
+  .overview-section{padding:28px 0 18px}
+  .map-wrap{border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.1);border:1px solid #e8ecf1}
+  .map-box{height:340px;width:100%}
+  .day-section{padding:28px 0;scroll-margin-top:48px}
+  .day-section:nth-child(even){background:#fff}
+  .day-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .day-number{width:52px;height:52px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;flex-shrink:0}
+  .day-number .d{font-size:9px;letter-spacing:1px;opacity:.9}
+  .day-number .n{font-size:20px;line-height:1;margin-top:1px}
+  .c1 .day-number{background:linear-gradient(135deg,#e53935,#ff7043)}
+  .c2 .day-number{background:linear-gradient(135deg,#1565c0,#42a5f5)}
+  .c3 .day-number{background:linear-gradient(135deg,#2e7d32,#66bb6a)}
+  .c4 .day-number{background:linear-gradient(135deg,#6a1b9a,#ab47bc)}
+  .day-header-text h3{font-size:17px;font-weight:600}
+  .day-header-text .meta{color:#888;font-size:11px;margin-top:2px}
+  .map-card{border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);border:1px solid #e8ecf1;background:#fff;margin-bottom:14px}
+  .map-card-title{padding:10px 14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid #f0f0f0;color:#333}
+  .day-map{height:260px;width:100%}
+  /* 路线信息卡片 */
+  .route-flow{padding:10px 14px;background:#fafbfc;border-top:1px solid #f0f0f0}
+  .route-step{display:flex;align-items:center;gap:8px;padding:7px 0;position:relative}
+  .route-step:not(:last-child){padding-bottom:10px}
+  .route-step:not(:last-child)::after{content:'';position:absolute;left:9px;bottom:0;width:1px;height:8px;background:#ccc}
+  .route-node{width:18px;height:18px;border-radius:50%;flex-shrink:0;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .route-node.red{background:#e53935}
+  .route-node.blue{background:#1976d2}
+  .route-node.green{background:#2e7d32}
+  .route-node.purple{background:#6a1b9a}
+  .route-info{flex:1;min-width:0}
+  .route-info .rname{font-size:12px;font-weight:600;color:#333}
+  .route-info .rdesc{font-size:10px;color:#999;margin-top:1px}
+  .route-dist-tag{display:inline-flex;align-items:center;padding:2px 6px;border-radius:8px;font-size:9px;font-weight:600;flex-shrink:0;margin-left:2px}
+  .route-dist-tag.km{background:#fce4ec;color:#c62828}
+  .route-dist-tag.time{background:#e8f5e9;color:#2e7d32}
+  .sched-card{border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);border:1px solid #e8ecf1;background:#fff}
+  .sched-title{padding:10px 14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;border-bottom:1px solid #f0f0f0;color:#333}
+  .sched-list{list-style:none}
+  .sched-item{padding:11px 14px;border-bottom:1px solid #f5f5f5;position:relative}
+  .sched-item:last-child{border-bottom:none}
+  .sched-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+  .c1 .sched-item::before{background:#ff7043}
+  .c2 .sched-item::before{background:#42a5f5}
+  .c3 .sched-item::before{background:#66bb6a}
+  .c4 .sched-item::before{background:#ab47bc}
+  .s-time{font-size:11px;color:#1976d2;font-weight:600;margin-bottom:2px}
+  .s-event{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+  .s-dest{font-size:11px;color:#666;margin-bottom:3px}
+  .s-dest .hl{color:#e53935;font-weight:500}
+  .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+  .tag{display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:8px;font-size:10px}
+  .tag.tr{background:#f0f7ff;color:#1976d2}
+  .tag.it{background:#fff3e0;color:#e65100}
+  footer{background:#1a1a2e;color:rgba(255,255,255,.7);padding:28px 14px;text-align:center;font-size:11px}
+  footer .brand{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+  @media(min-width:768px){
+    .hero{padding:55px 20px 65px}.hero h1{font-size:40px}.hero-sub{font-size:16px}
+    .day-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.map-card{margin-bottom:0}
+    .map-box{height:460px}.day-map{height:380px}.day-nav a{padding:13px 22px;font-size:13px}
+    .section-header h2{font-size:24px}
   }
-  /* Hero */
-  .hero {
-    position: relative; padding: 50px 20px 60px;
-    background: linear-gradient(135deg, #0d47a1 0%, #1976d2 50%, #42a5f5 100%);
-    text-align: center; color: #fff;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 30px; padding: 5px 18px;
-    font-size: 12px; letter-spacing: 2px; margin-bottom: 14px;
-  }
-  .hero h1 { font-size: 28px; font-weight: 700; letter-spacing: 3px; margin-bottom: 8px; }
-  .hero-sub { font-size: 14px; opacity: 0.9; }
-  .hero-stats { display: flex; gap: 24px; justify-content: center; margin-top: 16px; }
-  .hero-stat .num { font-size: 24px; font-weight: 700; }
-  .hero-stat .label { font-size: 11px; opacity: 0.8; }
-  .hero-wave { position: absolute; bottom: -1px; left: 0; width: 100%; }
-
-  /* Nav */
-  .day-nav {
-    position: sticky; top: 0; z-index: 1000;
-    background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .day-nav::-webkit-scrollbar { display: none; }
-  .day-nav a {
-    flex-shrink: 0; padding: 12px 16px;
-    text-decoration: none; color: #666;
-    font-size: 13px; font-weight: 500;
-    border-bottom: 3px solid transparent;
-    white-space: nowrap; transition: all 0.3s;
-  }
-  .day-nav a.active { color: #1976d2; border-bottom-color: #1976d2; background: #f0f7ff; }
-
-  /* Container */
-  .container { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
-
-  /* Section */
-  .section-header { text-align: center; margin-bottom: 20px; }
-  .section-header h2 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
-  .section-header p { color: #888; font-size: 13px; }
-  .overview-section { padding: 30px 0 20px; }
-  .map-wrap {
-    border-radius: 12px; overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    border: 1px solid #e8ecf1;
-  }
-  .map-box { height: 350px; width: 100%; }
-
-  /* Day Section */
-  .day-section { padding: 30px 0; scroll-margin-top: 50px; }
-  .day-section:nth-child(even) { background: #fff; }
-  .day-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-  .day-number {
-    width: 56px; height: 56px; border-radius: 14px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    color: #fff; font-weight: 700; flex-shrink: 0;
-  }
-  .day-number .d { font-size: 9px; letter-spacing: 1px; opacity: 0.9; }
-  .day-number .n { font-size: 22px; line-height: 1; margin-top: 1px; }
-  .c1 .day-number { background: linear-gradient(135deg, #e53935, #ff7043); }
-  .c2 .day-number { background: linear-gradient(135deg, #1565c0, #42a5f5); }
-  .c3 .day-number { background: linear-gradient(135deg, #2e7d32, #66bb6a); }
-  .c4 .day-number { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
-  .day-header-text h3 { font-size: 18px; font-weight: 600; }
-  .day-header-text .meta { color: #888; font-size: 12px; margin-top: 3px; }
-
-  /* Map Card */
-  .map-card {
-    border-radius: 12px; overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    border: 1px solid #e8ecf1; background: #fff;
-    margin-bottom: 16px;
-  }
-  .map-card-title {
-    padding: 12px 14px; font-size: 13px; font-weight: 600;
-    display: flex; align-items: center; gap: 6px;
-    border-bottom: 1px solid #f0f0f0; color: #333;
-  }
-  .day-map { height: 280px; width: 100%; }
-  .route-badges {
-    padding: 8px 14px;
-    display: flex; flex-wrap: wrap; gap: 6px;
-    border-top: 1px solid #f0f0f0; background: #fafbfc;
-  }
-  .badge {
-    display: inline-flex; align-items: center; gap: 3px;
-    padding: 4px 10px; border-radius: 16px;
-    font-size: 11px; font-weight: 500;
-  }
-  .badge.route { background: #e3f2fd; color: #1565c0; }
-  .badge.dist { background: #fce4ec; color: #c62828; }
-  .badge.transit { background: #e8f5e9; color: #2e7d32; }
-
-  /* Schedule */
-  .sched-card {
-    border-radius: 12px; overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    border: 1px solid #e8ecf1; background: #fff;
-  }
-  .sched-title {
-    padding: 12px 14px; font-size: 13px; font-weight: 600;
-    display: flex; align-items: center; gap: 6px;
-    border-bottom: 1px solid #f0f0f0; color: #333;
-  }
-  .sched-list { list-style: none; }
-  .sched-item {
-    padding: 12px 14px; border-bottom: 1px solid #f5f5f5;
-    position: relative;
-  }
-  .sched-item:last-child { border-bottom: none; }
-  .sched-item::before {
-    content: ''; position: absolute;
-    left: 0; top: 0; bottom: 0; width: 3px;
-  }
-  .c1 .sched-item::before { background: #ff7043; }
-  .c2 .sched-item::before { background: #42a5f5; }
-  .c3 .sched-item::before { background: #66bb6a; }
-  .c4 .sched-item::before { background: #ab47bc; }
-  .s-time { font-size: 12px; color: #1976d2; font-weight: 600; margin-bottom: 2px; }
-  .s-event { font-size: 14px; font-weight: 600; color: #1a1a2e; margin-bottom: 2px; }
-  .s-dest { font-size: 12px; color: #666; margin-bottom: 4px; }
-  .s-dest .hl { color: #e53935; font-weight: 500; }
-  .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
-  .tag {
-    display: inline-flex; align-items: center; gap: 2px;
-    padding: 2px 7px; border-radius: 8px; font-size: 10px;
-  }
-  .tag.tr { background: #f0f7ff; color: #1976d2; }
-  .tag.it { background: #fff3e0; color: #e65100; }
-
-  /* Footer */
-  footer {
-    background: #1a1a2e; color: rgba(255,255,255,0.7);
-    padding: 30px 16px; text-align: center; font-size: 12px;
-  }
-  footer .brand { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-
-  /* Desktop */
-  @media (min-width: 768px) {
-    .hero { padding: 60px 20px 70px; }
-    .hero h1 { font-size: 42px; }
-    .hero-sub { font-size: 17px; }
-    .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .map-card { margin-bottom: 0; }
-    .map-box { height: 480px; }
-    .day-map { height: 400px; }
-    .day-nav a { padding: 14px 24px; font-size: 14px; }
-    .section-header h2 { font-size: 26px; }
-  }
+  /* 导航弹窗 */
+  .nav-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:2000;align-items:center;justify-content:center}
+  .nav-overlay.show{display:flex}
+  .nav-dialog{background:#fff;border-radius:16px;width:88%;max-width:340px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+  .nav-dialog-header{padding:20px 20px 12px;text-align:center}
+  .nav-dialog-header .nav-icon{width:48px;height:48px;border-radius:50%;background:#e53935;display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px}
+  .nav-dialog-header .nav-icon svg{width:24px;height:24px}
+  .nav-dialog-header h4{font-size:16px;font-weight:600;color:#1a1a2e;margin-bottom:4px}
+  .nav-dialog-header p{font-size:13px;color:#888}
+  .nav-dialog-body{padding:0 20px 16px;text-align:center;font-size:13px;color:#666}
+  .nav-dialog-actions{display:flex;border-top:1px solid #f0f0f0}
+  .nav-dialog-actions button{flex:1;padding:14px;border:none;font-size:15px;font-weight:500;cursor:pointer;background:none}
+  .nav-dialog-actions .nav-cancel{color:#888}
+  .nav-dialog-actions .nav-cancel:active{background:#f5f5f5}
+  .nav-dialog-actions .nav-confirm{color:#1976d2;font-weight:600;border-left:1px solid #f0f0f0}
+  .nav-dialog-actions .nav-confirm:active{background:#f0f7ff}
+  /* 路线结果面板 */
+  .route-panel{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;z-index:2001;border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.15);max-height:60vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .route-panel.show{display:block}
+  .route-panel-header{padding:14px 16px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;z-index:1}
+  .route-panel-header h4{font-size:15px;font-weight:600;color:#1a1a2e}
+  .route-panel-close{width:28px;height:28px;border-radius:50%;background:#f0f0f0;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666}
+  .route-panel-summary{padding:12px 16px;background:#f0f7ff;display:flex;gap:16px;align-items:center}
+  .route-panel-summary .rp-item{text-align:center}
+  .route-panel-summary .rp-num{font-size:20px;font-weight:700;color:#1976d2}
+  .route-panel-summary .rp-label{font-size:10px;color:#888}
+  .route-panel-steps{padding:12px 16px;list-style:none}
+  .route-panel-steps li{padding:8px 0;border-bottom:1px solid #f8f8f8;font-size:13px;color:#333;display:flex;align-items:flex-start;gap:8px}
+  .route-panel-steps li:last-child{border-bottom:none}
+  .rp-step-icon{width:22px;height:22px;border-radius:50%;background:#e3f2fd;color:#1976d2;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:600;margin-top:1px}
+  .rp-step-text{flex:1}
+  .rp-step-dist{font-size:11px;color:#999;margin-top:2px}
+  .route-loading{padding:40px;text-align:center;color:#888;font-size:13px}
+  .route-loading .spinner{width:24px;height:24px;border:3px solid #e0e0e0;border-top-color:#1976d2;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+  @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<!-- Hero -->
 <div class="hero">
   <div class="hero-badge">✈️ Family Trip 2026</div>
   <h1>北京亲子游</h1>
@@ -183,7 +135,6 @@
   <svg class="hero-wave" viewBox="0 0 1440 80" fill="none"><path d="M0 30C360 60 720 0 1080 30C1260 45 1380 60 1440 60V80H0V30Z" fill="#f5f7fa"/></svg>
 </div>
 
-<!-- Nav -->
 <nav class="day-nav" id="topnav">
   <a href="#overview" class="active">🗺️ 总览</a>
   <a href="#day1">🏛️ D1·3.28</a>
@@ -192,16 +143,14 @@
   <a href="#day4">🐼 D4·3.31</a>
 </nav>
 
-<!-- Overview Map -->
+<!-- 全景地图 -->
 <section class="overview-section" id="overview">
   <div class="container">
     <div class="section-header">
       <h2>🗺️ 全景地图 · 目的地总览</h2>
-      <p>红色标注为Excel红色字体标记的重点目的地</p>
+      <p>红色重点目的地</p>
     </div>
-    <div class="map-wrap">
-      <div id="overview-map" class="map-box"></div>
-    </div>
+    <div class="map-wrap"><div id="overview-map" class="map-box"></div></div>
   </div>
 </section>
 
@@ -210,34 +159,45 @@
   <div class="container">
     <div class="day-header">
       <div class="day-number"><span class="d">DAY</span><span class="n">1</span></div>
-      <div class="day-header-text">
-        <h3>3.28（周六）· 抵达 & 故宫</h3>
-        <div class="meta">深航ZH9101 · 07:00起飞 · 10:15抵达T3</div>
-      </div>
+      <div class="day-header-text"><h3>3.28（周六）· 抵达 & 故宫</h3><div class="meta">深航ZH9101 · 07:00起飞 · 10:15抵达T3</div></div>
     </div>
     <div class="day-grid">
       <div class="map-card">
-        <div class="map-card-title">📍 Day 1 路线</div>
+        <div class="map-card-title">📍 Day 1 路线地图</div>
         <div id="map-day1" class="day-map"></div>
-        <div class="route-badges">
-          <span class="badge route">🛬 机场→酒店</span>
-          <span class="badge dist">29km</span>
-          <span class="badge transit">🚇 约1h</span>
-        </div>
-        <div class="route-badges">
-          <span class="badge route">🏛️ 酒店→故宫</span>
-          <span class="badge dist">1.2km</span>
-          <span class="badge transit">🚶 5min</span>
+        <div class="route-flow">
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">首都机场T3</div><div class="rdesc">地铁/网约车 → 贵宾楼饭店</div></div>
+            <span class="route-dist-tag km">29km</span>
+            <span class="route-dist-tag time">1h</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">北京贵宾楼饭店</div><div class="rdesc">步行/网约车 → 故宫博物院</div></div>
+            <span class="route-dist-tag km">1.2km</span>
+            <span class="route-dist-tag time">5min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">故宫博物院</div><div class="rdesc">步行 → 王府井/前门</div></div>
+            <span class="route-dist-tag km">1.5km</span>
+            <span class="route-dist-tag time">10min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node blue"></div>
+            <div class="route-info"><div class="rname">王府井/前门</div><div class="rdesc">晚餐后返回酒店</div></div>
+          </div>
         </div>
       </div>
       <div class="sched-card">
         <div class="sched-title">📋 Day 1 行程</div>
         <ul class="sched-list">
           <li class="sched-item"><div class="s-time">🕓 04:30–05:30</div><div class="s-event">出发去机场</div><div class="s-dest">📍 深圳宝安T3</div><div class="tags"><span class="tag tr">🚗 网约车</span><span class="tag it">🎒 身份证·户口本·充电宝</span></div></li>
-          <li class="sched-item"><div class="s-time">✈️ 07:00–10:15</div><div class="s-event">飞行 深圳→北京</div><div class="s-dest">📍 深圳→首都机场T3</div><div class="tags"><span class="tag tr">✈️ ZH9101</span><span class="tag it">🎒 绘本/平板·口罩</span></div></li>
-          <li class="sched-item"><div class="s-time">🕙 10:15–11:30</div><div class="s-event">机场→酒店入住</div><div class="s-dest">📍 <span class="hl">首都机场→贵宾楼饭店</span></div><div class="tags"><span class="tag tr">🚇 地铁/网约车</span><span class="tag it">🎒 行李箱</span></div></li>
+          <li class="sched-item"><div class="s-time">✈️ 07:00–10:15</div><div class="s-event">飞行 深圳→北京</div><div class="s-dest">📍 深圳→首都机场T3</div><div class="tags"><span class="tag tr">✈️ ZH9101 3h15m</span><span class="tag it">🎒 绘本/平板·口罩</span></div></li>
+          <li class="sched-item"><div class="s-time">🕙 10:15–11:30</div><div class="s-event">机场→酒店入住</div><div class="s-dest">📍 <span class="hl">首都机场→贵宾楼饭店</span></div><div class="tags"><span class="tag tr">🚇 地铁/网约车 29km</span><span class="tag it">🎒 行李箱</span></div></li>
           <li class="sched-item"><div class="s-time">🕦 11:30–14:30</div><div class="s-event">午餐 & 休息</div><div class="s-dest">📍 酒店附近</div><div class="tags"><span class="tag it">🎒 水杯·防晒帽</span></div></li>
-          <li class="sched-item"><div class="s-time">🕝 14:30–17:30</div><div class="s-event">故宫游览</div><div class="s-dest">📍 <span class="hl">故宫博物院</span> · 中线+珍宝馆</div><div class="tags"><span class="tag tr">🚗 1.2KM 5分钟</span><span class="tag it">🎒 身份证·N95·防花粉眼罩</span></div></li>
+          <li class="sched-item"><div class="s-time">🕝 14:30–17:30</div><div class="s-event">故宫游览</div><div class="s-dest">📍 <span class="hl">故宫博物院</span> · 中线+珍宝馆</div><div class="tags"><span class="tag tr">🚗 1.2km 5min</span><span class="tag it">🎒 身份证·N95·防花粉眼罩</span></div></li>
           <li class="sched-item"><div class="s-time">🕓 16:00–20:00</div><div class="s-event">晚餐 & 闲逛</div><div class="s-dest">📍 王府井/前门</div><div class="tags"><span class="tag tr">🚶 步行10min</span><span class="tag it">🎒 水杯·现金</span></div></li>
         </ul>
       </div>
@@ -250,24 +210,35 @@
   <div class="container">
     <div class="day-header">
       <div class="day-number"><span class="d">DAY</span><span class="n">2</span></div>
-      <div class="day-header-text">
-        <h3>3.29（周日）· 升旗 & 颐和园</h3>
-        <div class="meta">升旗05:04 · 景山/颐和园二选一 · 前门美食</div>
-      </div>
+      <div class="day-header-text"><h3>3.29（周日）· 升旗 & 颐和园</h3><div class="meta">升旗05:04 · 景山/颐和园二选一 · 前门美食</div></div>
     </div>
     <div class="day-grid">
       <div class="map-card">
-        <div class="map-card-title">📍 Day 2 路线</div>
+        <div class="map-card-title">📍 Day 2 路线地图</div>
         <div id="map-day2" class="day-map"></div>
-        <div class="route-badges">
-          <span class="badge route">🏨 酒店→天安门</span>
-          <span class="badge dist">0.8km</span>
-          <span class="badge transit">🚶 13min</span>
-        </div>
-        <div class="route-badges">
-          <span class="badge route">🏯 酒店→颐和园</span>
-          <span class="badge dist">9.6km</span>
-          <span class="badge transit">🚗 21min</span>
+        <div class="route-flow">
+          <div class="route-step">
+            <div class="route-node blue"></div>
+            <div class="route-info"><div class="rname">贵宾楼饭店</div><div class="rdesc">步行 → 天安门看升旗</div></div>
+            <span class="route-dist-tag km">0.8km</span>
+            <span class="route-dist-tag time">13min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">景山公园（二选一）</div><div class="rdesc">步行/公交 → 万春亭俯瞰故宫</div></div>
+            <span class="route-dist-tag km">1.5km</span>
+            <span class="route-dist-tag time">20min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">颐和园（二选一）</div><div class="rdesc">网约车 → 东宫门→长廊→昆明湖</div></div>
+            <span class="route-dist-tag km">9.6km</span>
+            <span class="route-dist-tag time">21min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node blue"></div>
+            <div class="route-info"><div class="rname">前门大街</div><div class="rdesc">逛吃晚餐 · 炸酱面/烤鸭</div></div>
+          </div>
         </div>
       </div>
       <div class="sched-card">
@@ -292,19 +263,29 @@
   <div class="container">
     <div class="day-header">
       <div class="day-number"><span class="d">DAY</span><span class="n">3</span></div>
-      <div class="day-header-text">
-        <h3>3.30（周一）· 环球影城</h3>
-        <div class="meta">哈利波特·变形金刚·小黄人·功夫熊猫</div>
-      </div>
+      <div class="day-header-text"><h3>3.30（周一）· 环球影城</h3><div class="meta">哈利波特·变形金刚·小黄人·功夫熊猫</div></div>
     </div>
     <div class="day-grid">
       <div class="map-card">
-        <div class="map-card-title">📍 Day 3 路线</div>
+        <div class="map-card-title">📍 Day 3 路线地图</div>
         <div id="map-day3" class="day-map"></div>
-        <div class="route-badges">
-          <span class="badge route">🏨 酒店→环球度假区</span>
-          <span class="badge dist">26km</span>
-          <span class="badge transit">🚇 50min（20站）</span>
+        <div class="route-flow">
+          <div class="route-step">
+            <div class="route-node green"></div>
+            <div class="route-info"><div class="rname">贵宾楼饭店</div><div class="rdesc">地铁 王府井→环球度假区（20站）</div></div>
+            <span class="route-dist-tag km">26km</span>
+            <span class="route-dist-tag time">50min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">北京环球度假区</div><div class="rdesc">全天游玩 09:00-20:00</div></div>
+          </div>
+          <div class="route-step">
+            <div class="route-node green"></div>
+            <div class="route-info"><div class="rname">返回酒店</div><div class="rdesc">地铁原路返回（20站）</div></div>
+            <span class="route-dist-tag km">26km</span>
+            <span class="route-dist-tag time">50min</span>
+          </div>
         </div>
       </div>
       <div class="sched-card">
@@ -324,24 +305,34 @@
   <div class="container">
     <div class="day-header">
       <div class="day-number"><span class="d">DAY</span><span class="n">4</span></div>
-      <div class="day-header-text">
-        <h3>3.31（周二）· 动物园 & 返程</h3>
-        <div class="meta">动物园🐼 · 南航CZ3154 · 18:00飞深圳</div>
-      </div>
+      <div class="day-header-text"><h3>3.31（周二）· 动物园 & 返程</h3><div class="meta">动物园🐼 · 南航CZ3154 · 18:00飞深圳</div></div>
     </div>
     <div class="day-grid">
       <div class="map-card">
-        <div class="map-card-title">📍 Day 4 路线</div>
+        <div class="map-card-title">📍 Day 4 路线地图</div>
         <div id="map-day4" class="day-map"></div>
-        <div class="route-badges">
-          <span class="badge route">🏨 酒店→动物园</span>
-          <span class="badge dist">5.5km</span>
-          <span class="badge transit">🚇 20min</span>
-        </div>
-        <div class="route-badges">
-          <span class="badge route">🐼 动物园→大兴机场</span>
-          <span class="badge dist">48km</span>
-          <span class="badge transit">🚇 约60min</span>
+        <div class="route-flow">
+          <div class="route-step">
+            <div class="route-node purple"></div>
+            <div class="route-info"><div class="rname">贵宾楼饭店（退房）</div><div class="rdesc">地铁 王府井→动物园（9站）</div></div>
+            <span class="route-dist-tag km">5.5km</span>
+            <span class="route-dist-tag time">20min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">北京动物园</div><div class="rdesc">看熊猫 09:00-12:00</div></div>
+          </div>
+          <div class="route-step">
+            <div class="route-node red"></div>
+            <div class="route-info"><div class="rname">大兴国际机场</div><div class="rdesc">4号线→19号线→大兴机场线</div></div>
+            <span class="route-dist-tag km">48km</span>
+            <span class="route-dist-tag time">60min</span>
+          </div>
+          <div class="route-step">
+            <div class="route-node purple"></div>
+            <div class="route-info"><div class="rname">飞回深圳</div><div class="rdesc">南航CZ3154 18:00→21:30</div></div>
+            <span class="route-dist-tag time">3.5h</span>
+          </div>
         </div>
       </div>
       <div class="sched-card">
@@ -350,7 +341,7 @@
           <li class="sched-item"><div class="s-time">🕗 08:00–09:00</div><div class="s-event">早餐 & 退房</div><div class="s-dest">📍 退房·邮寄行李</div><div class="tags"><span class="tag it">🎒 全部证件·行李</span></div></li>
           <li class="sched-item"><div class="s-time">🐼 09:00–12:00</div><div class="s-event">北京动物园</div><div class="s-dest">📍 <span class="hl">北京动物园</span> · 看熊猫</div><div class="tags"><span class="tag tr">🚇 王府井→动物园 9站</span><span class="tag it">🎒 零食·相机·帽子</span></div></li>
           <li class="sched-item"><div class="s-time">🕛 12:00–15:00</div><div class="s-event">午餐+休息</div><div class="s-dest">📍 动物园附近</div></li>
-          <li class="sched-item"><div class="s-time">🕒 15:00–16:30</div><div class="s-event">前往大兴机场</div><div class="s-dest">📍 动物园→<span class="hl">大兴机场</span></div><div class="tags"><span class="tag tr">🚇 4号→19号→大兴线</span><span class="tag it">🎒 行李·身份证</span></div></li>
+          <li class="sched-item"><div class="s-time">🕒 15:00–16:30</div><div class="s-event">前往大兴机场</div><div class="s-dest">📍 动物园→<span class="hl">大兴机场</span></div><div class="tags"><span class="tag tr">🚇 4号→19号→大兴线 48km</span><span class="tag it">🎒 行李·身份证</span></div></li>
           <li class="sched-item"><div class="s-time">🕟 16:40–17:40</div><div class="s-event">值机+安检</div><div class="s-dest">📍 <span class="hl">大兴国际机场</span></div><div class="tags"><span class="tag tr">✈️ CZ3154 18:00飞</span><span class="tag it">🎒 登机牌·户口本</span></div></li>
           <li class="sched-item"><div class="s-time">✈️ 18:00–21:30</div><div class="s-event">飞行返程</div><div class="s-dest">📍 北京→深圳宝安T3</div><div class="tags"><span class="tag tr">✈️ 3.5小时</span><span class="tag it">🎒 绘本·口罩</span></div></li>
         </ul>
@@ -362,173 +353,305 @@
 <footer>
   <div class="brand">🏙️ 北京亲子游 · 行程规划</div>
   <p>2026年3月28日—31日 · 深圳往返</p>
-  <p style="margin-top:6px;font-size:11px;opacity:0.5;">地图服务由腾讯地图提供</p>
+  <p style="margin-top:6px;font-size:10px;opacity:.5">地图服务由腾讯地图提供</p>
 </footer>
 
-<!-- 腾讯地图 JS API v2 (非GL版，微信兼容) -->
+<!-- 导航确认弹窗 -->
+<div class="nav-overlay" id="navOverlay">
+  <div class="nav-dialog">
+    <div class="nav-dialog-header">
+      <div class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <h4 id="navDestName">目的地</h4>
+      <p>是否步行导航到这里？</p>
+    </div>
+    <div class="nav-dialog-body" id="navDestAddr">将获取您的当前位置并规划步行路线</div>
+    <div class="nav-dialog-actions">
+      <button class="nav-cancel" onclick="closeNav()">取消</button>
+      <button class="nav-confirm" onclick="startNav()">步行导航</button>
+    </div>
+  </div>
+</div>
+
+<!-- 路线结果面板 -->
+<div class="route-panel" id="routePanel">
+  <div class="route-panel-header">
+    <h4 id="rpTitle">🚶 步行路线</h4>
+    <button class="route-panel-close" onclick="closeRoute()">✕</button>
+  </div>
+  <div id="rpContent">
+    <div class="route-loading"><div class="spinner"></div>正在获取位置和规划路线...</div>
+  </div>
+</div>
+
 <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=EPGBZ-W3ARM-4FR6E-6SD5Y-C73UK-ADBZX"></script>
 <script>
-var P = {
-  capitalAirport: { name: '首都机场T3', lat: 40.0799, lng: 116.6031, red: 0 },
-  hotel:          { name: '北京贵宾楼饭店', lat: 39.9135, lng: 116.4070, red: 1 },
-  forbidden:      { name: '故宫博物院', lat: 39.9163, lng: 116.3972, red: 1 },
-  tiananmen:      { name: '天安门', lat: 39.9087, lng: 116.3975, red: 0 },
-  jingshan:       { name: '景山公园', lat: 39.9249, lng: 116.3963, red: 1 },
-  summerPalace:   { name: '颐和园', lat: 39.9998, lng: 116.2755, red: 1 },
-  universal:      { name: '北京环球度假区', lat: 39.8433, lng: 116.6815, red: 1 },
-  zoo:            { name: '北京动物园', lat: 39.9406, lng: 116.3380, red: 1 },
-  daxingAirport:  { name: '大兴国际机场', lat: 39.5098, lng: 116.4107, red: 1 },
-  wangfujing:     { name: '王府井', lat: 39.9142, lng: 116.4103, red: 0 },
-  qianmen:        { name: '前门大街', lat: 39.8994, lng: 116.3976, red: 0 }
-};
-
-function addPin(map, key) {
-  var p = P[key];
-  var pos = new qq.maps.LatLng(p.lat, p.lng);
-  var marker = new qq.maps.Marker({
-    position: pos,
-    map: map,
-    animation: qq.maps.MarkerAnimation.DROP
-  });
-  // 红色标记用红色图标
-  if (p.red) {
-    marker.setIcon(new qq.maps.MarkerImage(
-      'https://apis.map.qq.com/tools/poimarker?type=1&marker=1&color=FF3333',
-      null, null, null, new qq.maps.Size(28, 40)
-    ));
-  }
-  var info = new qq.maps.InfoWindow({ map: map });
-  qq.maps.event.addListener(marker, 'click', function() {
-    info.open();
-    info.setContent('<div style="padding:6px;font-size:13px;font-weight:600;">' + p.name + (p.red ? ' 📌' : '') + '</div>');
-    info.setPosition(pos);
-  });
-  // 添加文字标签
-  var label = new qq.maps.Label({
-    position: pos,
-    map: map,
-    content: p.name,
-    style: {
-      color: p.red ? '#e53935' : '#1976d2',
-      fontSize: '11px',
-      fontWeight: '600',
-      backgroundColor: 'rgba(255,255,255,0.92)',
-      border: '1px solid ' + (p.red ? '#e53935' : '#1976d2'),
-      borderRadius: '4px',
-      padding: '2px 6px'
-    },
-    offset: new qq.maps.Size(0, -44)
-  });
-  return marker;
-}
-
-function drawLine(map, points, color, dashed) {
-  var path = points.map(function(p) { return new qq.maps.LatLng(p[0], p[1]); });
-  new qq.maps.Polyline({
-    path: path,
-    map: map,
-    strokeColor: new qq.maps.Color(color),
-    strokeWeight: 5,
-    strokeDashStyle: dashed ? 'dash' : 'solid'
-  });
-}
-
-function addDistLabel(map, points, text) {
-  var mid = Math.floor(points.length / 2);
-  new qq.maps.Label({
-    position: new qq.maps.LatLng(points[mid][0], points[mid][1]),
-    map: map,
-    content: text,
-    style: {
-      color: '#fff',
-      fontSize: '11px',
-      fontWeight: '600',
-      backgroundColor: 'rgba(25,118,210,0.85)',
-      border: '1px solid #1565c0',
-      borderRadius: '10px',
-      padding: '2px 8px'
+(function(){
+  // 等 SDK 加载，最多等 5 秒
+  var tries = 0;
+  var timer = setInterval(function(){
+    tries++;
+    if (typeof qq !== 'undefined' && qq.maps) {
+      clearInterval(timer);
+      initMaps();
+    } else if (tries > 50) {
+      clearInterval(timer);
     }
+  }, 100);
+
+  function initMaps(){
+    var P = {
+      capitalAirport:{name:'首都机场T3',lat:40.0799,lng:116.6031,red:0},
+      hotel:{name:'北京贵宾楼饭店',lat:39.9135,lng:116.407,red:1},
+      forbidden:{name:'故宫博物院',lat:39.9163,lng:116.3972,red:1},
+      tiananmen:{name:'天安门',lat:39.9087,lng:116.3975,red:0},
+      jingshan:{name:'景山公园',lat:39.9249,lng:116.3963,red:1},
+      summerPalace:{name:'颐和园',lat:39.9998,lng:116.2755,red:1},
+      universal:{name:'北京环球度假区',lat:39.8433,lng:116.6815,red:1},
+      zoo:{name:'北京动物园',lat:39.9406,lng:116.338,red:1},
+      daxingAirport:{name:'大兴国际机场',lat:39.5098,lng:116.4107,red:1},
+      wangfujing:{name:'王府井',lat:39.9142,lng:116.4103,red:0},
+      qianmen:{name:'前门大街',lat:39.8994,lng:116.3976,red:0}
+    };
+
+    function pin(map,key){
+      var p=P[key], pos=new qq.maps.LatLng(p.lat,p.lng);
+      var opt={position:pos,map:map};
+      // 红色标记用红色圆点图标，非红色用蓝色
+      try{
+        var c = p.red ? 'e53935' : '1976d2';
+        var svgRaw = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">'
+          + '<circle cx="10" cy="10" r="8" fill="#' + c + '" stroke="#fff" stroke-width="2.5"/>'
+          + '</svg>';
+        opt.icon = new qq.maps.MarkerImage(
+          'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgRaw),
+          null, null, null, new qq.maps.Size(16, 16)
+        );
+      }catch(e){}
+      var mk=new qq.maps.Marker(opt);
+      // 标签
+      try{
+        new qq.maps.Label({
+          position:pos,map:map,content:p.name,
+          style:{color:p.red?'#e53935':'#1976d2',fontSize:'10px',fontWeight:'600',
+            backgroundColor:'rgba(255,255,255,.9)',border:'1px solid '+(p.red?'#e53935':'#1976d2'),
+            borderRadius:'3px',padding:'1px 4px'},
+          offset:new qq.maps.Size(0,-38)
+        });
+      }catch(e){}
+      return mk;
+    }
+
+    function line(map,pts,hex){
+      try{
+        var path=[];
+        for(var i=0;i<pts.length;i++) path.push(new qq.maps.LatLng(pts[i][0],pts[i][1]));
+        // 尝试直接传 hex 字符串（部分版本支持）
+        new qq.maps.Polyline({path:path,map:map,strokeColor:hex,strokeWeight:5});
+      }catch(e){
+        try{
+          // fallback: 用 Color 对象
+          var h=hex.replace('#','');
+          var r=parseInt(h.substring(0,2),16),g=parseInt(h.substring(2,4),16),b=parseInt(h.substring(4,6),16);
+          var path2=[];
+          for(var j=0;j<pts.length;j++) path2.push(new qq.maps.LatLng(pts[j][0],pts[j][1]));
+          new qq.maps.Polyline({path:path2,map:map,strokeColor:new qq.maps.Color(r,g,b,1),strokeWeight:5});
+        }catch(e2){}
+      }
+    }
+
+    function fit(map,keys){
+      var b=new qq.maps.LatLngBounds();
+      for(var i=0;i<keys.length;i++) b.extend(new qq.maps.LatLng(P[keys[i]].lat,P[keys[i]].lng));
+      map.fitBounds(b);
+    }
+
+    // 全景地图专用标记（带导航交互）
+    function pinNav(map,key){
+      var p=P[key], pos=new qq.maps.LatLng(p.lat,p.lng);
+      var opt={position:pos,map:map};
+      try{
+        var c = p.red ? 'e53935' : '1976d2';
+        var svgRaw = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">'
+          + '<circle cx="10" cy="10" r="8" fill="#' + c + '" stroke="#fff" stroke-width="2.5"/>'
+          + '</svg>';
+        opt.icon = new qq.maps.MarkerImage(
+          'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgRaw),
+          null, null, null, new qq.maps.Size(16, 16)
+        );
+      }catch(e){}
+      var mk=new qq.maps.Marker(opt);
+      // 点击弹出导航确认
+      qq.maps.event.addListener(mk, 'click', function(){
+        showNav(key);
+      });
+      try{
+        new qq.maps.Label({
+          position:pos,map:map,content:p.name,
+          style:{color:p.red?'#e53935':'#1976d2',fontSize:'10px',fontWeight:'600',
+            backgroundColor:'rgba(255,255,255,.9)',border:'1px solid '+(p.red?'#e53935':'#1976d2'),
+            borderRadius:'3px',padding:'1px 4px'},
+          offset:new qq.maps.Size(0,-38)
+        });
+      }catch(e){}
+      return mk;
+    }
+
+    // 全景地图
+    var om=new qq.maps.Map(document.getElementById('overview-map'),{center:new qq.maps.LatLng(39.85,116.45),zoom:9,mapTypeControl:false});
+    var ak=Object.keys(P);
+    for(var i=0;i<ak.length;i++) pinNav(om,ak[i]);
+    fit(om,ak);
+
+    // 保存 P 到全局供导航使用
+    window._P = P;
+    window._overviewMap = om;
+
+    // Day1
+    var m1=new qq.maps.Map(document.getElementById('map-day1'),{center:new qq.maps.LatLng(39.96,116.5),zoom:11,mapTypeControl:false});
+    var d1k=['capitalAirport','hotel','forbidden','wangfujing'];
+    for(var i=0;i<d1k.length;i++) pin(m1,d1k[i]);
+    line(m1,[[40.0799,116.6031],[40.065,116.58],[40.002,116.435],[39.947,116.42],[39.9135,116.407]],'#e53935');
+    line(m1,[[39.9135,116.407],[39.915,116.402],[39.9163,116.3972]],'#ff9800');
+    line(m1,[[39.9163,116.3972],[39.9142,116.4103]],'#4caf50');
+    fit(m1,d1k);
+
+    // Day2
+    var m2=new qq.maps.Map(document.getElementById('map-day2'),{center:new qq.maps.LatLng(39.95,116.38),zoom:12,mapTypeControl:false});
+    var d2k=['hotel','tiananmen','jingshan','summerPalace','qianmen'];
+    for(var i=0;i<d2k.length;i++) pin(m2,d2k[i]);
+    line(m2,[[39.9135,116.407],[39.91,116.402],[39.9087,116.3975]],'#1565c0');
+    line(m2,[[39.9135,116.407],[39.92,116.40],[39.9249,116.3963]],'#ff9800');
+    line(m2,[[39.9135,116.407],[39.93,116.38],[39.96,116.34],[39.98,116.30],[39.9998,116.2755]],'#4caf50');
+    fit(m2,d2k);
+
+    // Day3
+    var m3=new qq.maps.Map(document.getElementById('map-day3'),{center:new qq.maps.LatLng(39.88,116.55),zoom:11,mapTypeControl:false});
+    var d3k=['hotel','universal'];
+    for(var i=0;i<d3k.length;i++) pin(m3,d3k[i]);
+    line(m3,[[39.9135,116.407],[39.91,116.43],[39.90,116.48],[39.88,116.55],[39.86,116.62],[39.8433,116.6815]],'#2e7d32');
+    fit(m3,d3k);
+
+    // Day4
+    var m4=new qq.maps.Map(document.getElementById('map-day4'),{center:new qq.maps.LatLng(39.72,116.40),zoom:10,mapTypeControl:false});
+    var d4k=['hotel','zoo','daxingAirport'];
+    for(var i=0;i<d4k.length;i++) pin(m4,d4k[i]);
+    line(m4,[[39.9135,116.407],[39.93,116.38],[39.9406,116.338]],'#6a1b9a');
+    line(m4,[[39.9406,116.338],[39.92,116.35],[39.85,116.37],[39.75,116.39],[39.65,116.40],[39.5098,116.4107]],'#e91e63');
+    fit(m4,d4k);
+  }
+})();
+
+// Nav
+var nls=document.querySelectorAll('.day-nav a'),scs=document.querySelectorAll('.overview-section,.day-section');
+window.addEventListener('scroll',function(){var c='';for(var i=0;i<scs.length;i++){if(window.pageYOffset>=scs[i].offsetTop-80)c=scs[i].id}for(var j=0;j<nls.length;j++){nls[j].className=nls[j].getAttribute('href')==='#'+c?'active':''}});
+
+// ===== 导航交互 =====
+var _navTarget = null; // 当前选中的目的地key
+
+function showNav(key){
+  var p = window._P[key];
+  if(!p) return;
+  _navTarget = key;
+  document.getElementById('navDestName').textContent = p.name;
+  document.getElementById('navDestAddr').textContent = '将获取您的当前位置，规划步行路线到 ' + p.name;
+  document.getElementById('navOverlay').classList.add('show');
+}
+
+function closeNav(){
+  document.getElementById('navOverlay').classList.remove('show');
+  _navTarget = null;
+}
+
+function closeRoute(){
+  document.getElementById('routePanel').classList.remove('show');
+}
+
+function startNav(){
+  closeNav();
+  var panel = document.getElementById('routePanel');
+  var content = document.getElementById('rpContent');
+  panel.classList.add('show');
+  content.innerHTML = '<div class="route-loading"><div class="spinner"></div>正在获取您的位置...</div>';
+
+  if(!navigator.geolocation){
+    content.innerHTML = '<div class="route-loading">⚠️ 您的浏览器不支持定位功能<br><br><button onclick="openExternalNav()" style="padding:10px 24px;background:#1976d2;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer">打开腾讯地图导航</button></div>';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(function(pos){
+    var myLat = pos.coords.latitude;
+    var myLng = pos.coords.longitude;
+    var dest = window._P[_navTarget];
+    if(!dest) return;
+
+    content.innerHTML = '<div class="route-loading"><div class="spinner"></div>正在规划步行路线...</div>';
+    document.getElementById('rpTitle').textContent = '🚶 步行到 ' + dest.name;
+
+    // 计算直线距离
+    var R = 6371;
+    var dLat = (dest.lat - myLat) * Math.PI / 180;
+    var dLng = (dest.lng - myLng) * Math.PI / 180;
+    var a = Math.sin(dLat/2)*Math.sin(dLat/2) + Math.cos(myLat*Math.PI/180)*Math.cos(dest.lat*Math.PI/180)*Math.sin(dLng/2)*Math.sin(dLng/2);
+    var dist = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var walkDist = dist * 1.3; // 步行路径约为直线1.3倍
+    var walkMin = Math.round(walkDist / 5 * 60); // 步行速度约5km/h
+
+    var distText = walkDist < 1 ? Math.round(walkDist*1000) + '米' : walkDist.toFixed(1) + '公里';
+    var timeText = walkMin < 60 ? walkMin + '分钟' : Math.floor(walkMin/60) + '小时' + (walkMin%60) + '分钟';
+
+    var html = '<div class="route-panel-summary">'
+      + '<div class="rp-item"><div class="rp-num">' + distText + '</div><div class="rp-label">预估距离</div></div>'
+      + '<div class="rp-item"><div class="rp-num">' + timeText + '</div><div class="rp-label">预估时间</div></div>'
+      + '<div class="rp-item"><div class="rp-num">🚶</div><div class="rp-label">步行</div></div>'
+      + '</div>';
+
+    html += '<ul class="route-panel-steps">';
+    html += '<li><span class="rp-step-icon">起</span><span class="rp-step-text">从当前位置出发<div class="rp-step-dist">📍 ' + myLat.toFixed(4) + ', ' + myLng.toFixed(4) + '</div></span></li>';
+
+    // 生成中间步骤（简化导航提示）
+    if(walkDist > 3){
+      html += '<li><span class="rp-step-icon">→</span><span class="rp-step-text">沿主路向目的地方向步行<div class="rp-step-dist">建议使用地图App获取详细导航</div></span></li>';
+    }
+    if(walkDist > 10){
+      html += '<li><span class="rp-step-icon">!</span><span class="rp-step-text">距离较远，建议乘坐公共交通<div class="rp-step-dist">步行超过10公里，可考虑地铁/公交</div></span></li>';
+    }
+
+    html += '<li><span class="rp-step-icon" style="background:#fce4ec;color:#e53935">终</span><span class="rp-step-text">到达 <b>' + dest.name + '</b><div class="rp-step-dist">📍 ' + dest.lat.toFixed(4) + ', ' + dest.lng.toFixed(4) + '</div></span></li>';
+    html += '</ul>';
+
+    // 打开地图导航按钮
+    html += '<div style="padding:12px 16px 20px;text-align:center">'
+      + '<button onclick="openExternalNav()" style="width:100%;padding:12px;background:#1976d2;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer">🗺️ 打开腾讯地图导航</button>'
+      + '<div style="font-size:11px;color:#999;margin-top:8px">将跳转至腾讯地图获取精确步行路线</div>'
+      + '</div>';
+
+    content.innerHTML = html;
+
+  }, function(err){
+    var msg = '定位失败';
+    if(err.code === 1) msg = '您拒绝了定位请求，请在浏览器设置中允许位置访问';
+    else if(err.code === 2) msg = '无法获取位置信息';
+    else if(err.code === 3) msg = '定位超时，请重试';
+
+    content.innerHTML = '<div class="route-loading">⚠️ ' + msg + '<br><br><button onclick="openExternalNav()" style="padding:10px 24px;background:#1976d2;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer">直接打开腾讯地图</button></div>';
+  }, {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 60000
   });
 }
 
-function fitMap(map, keys) {
-  var b = new qq.maps.LatLngBounds();
-  keys.forEach(function(k) { b.extend(new qq.maps.LatLng(P[k].lat, P[k].lng)); });
-  map.fitBounds(b);
+function openExternalNav(){
+  if(!_navTarget || !window._P[_navTarget]) return;
+  var dest = window._P[_navTarget];
+  // 腾讯地图URI，步行导航
+  var url = 'https://apis.map.qq.com/uri/v1/routeplan?type=walk'
+    + '&to=' + encodeURIComponent(dest.name)
+    + '&tocoord=' + dest.lat + ',' + dest.lng
+    + '&coord_type=1'
+    + '&referer=beijing-trip';
+  window.open(url, '_blank');
 }
-
-// ===== 全景地图 =====
-var om = new qq.maps.Map(document.getElementById('overview-map'), {
-  center: new qq.maps.LatLng(39.85, 116.45),
-  zoom: 9,
-  mapTypeControl: false
-});
-var allKeys = Object.keys(P);
-allKeys.forEach(function(k) { addPin(om, k); });
-fitMap(om, allKeys);
-
-// ===== Day 1 =====
-var m1 = new qq.maps.Map(document.getElementById('map-day1'), {
-  center: new qq.maps.LatLng(39.96, 116.5), zoom: 11, mapTypeControl: false
-});
-['capitalAirport','hotel','forbidden','wangfujing'].forEach(function(k) { addPin(m1, k); });
-var r1a = [[40.0799,116.6031],[40.065,116.58],[40.002,116.435],[39.947,116.42],[39.9135,116.407]];
-drawLine(m1, r1a, '#e53935'); addDistLabel(m1, r1a, '29 km');
-var r1b = [[39.9135,116.407],[39.915,116.402],[39.9163,116.3972]];
-drawLine(m1, r1b, '#ff9800'); addDistLabel(m1, r1b, '1.2 km');
-var r1c = [[39.9163,116.3972],[39.9142,116.4103]];
-drawLine(m1, r1c, '#4caf50');
-fitMap(m1, ['capitalAirport','hotel','forbidden','wangfujing']);
-
-// ===== Day 2 =====
-var m2 = new qq.maps.Map(document.getElementById('map-day2'), {
-  center: new qq.maps.LatLng(39.95, 116.38), zoom: 12, mapTypeControl: false
-});
-['hotel','tiananmen','jingshan','summerPalace','qianmen'].forEach(function(k) { addPin(m2, k); });
-var r2a = [[39.9135,116.407],[39.91,116.402],[39.9087,116.3975]];
-drawLine(m2, r2a, '#1565c0'); addDistLabel(m2, r2a, '0.8 km');
-var r2b = [[39.9135,116.407],[39.92,116.40],[39.9249,116.3963]];
-drawLine(m2, r2b, '#ff9800'); addDistLabel(m2, r2b, '1.5 km');
-var r2c = [[39.9135,116.407],[39.93,116.38],[39.96,116.34],[39.98,116.30],[39.9998,116.2755]];
-drawLine(m2, r2c, '#4caf50', true); addDistLabel(m2, r2c, '9.6 km');
-fitMap(m2, ['hotel','tiananmen','jingshan','summerPalace','qianmen']);
-
-// ===== Day 3 =====
-var m3 = new qq.maps.Map(document.getElementById('map-day3'), {
-  center: new qq.maps.LatLng(39.88, 116.55), zoom: 11, mapTypeControl: false
-});
-['hotel','universal'].forEach(function(k) { addPin(m3, k); });
-var r3 = [[39.9135,116.407],[39.91,116.43],[39.90,116.48],[39.88,116.55],[39.86,116.62],[39.8433,116.6815]];
-drawLine(m3, r3, '#2e7d32'); addDistLabel(m3, r3, '26 km');
-fitMap(m3, ['hotel','universal']);
-
-// ===== Day 4 =====
-var m4 = new qq.maps.Map(document.getElementById('map-day4'), {
-  center: new qq.maps.LatLng(39.72, 116.40), zoom: 10, mapTypeControl: false
-});
-['hotel','zoo','daxingAirport'].forEach(function(k) { addPin(m4, k); });
-var r4a = [[39.9135,116.407],[39.93,116.38],[39.9406,116.338]];
-drawLine(m4, r4a, '#6a1b9a'); addDistLabel(m4, r4a, '5.5 km');
-var r4b = [[39.9406,116.338],[39.92,116.35],[39.85,116.37],[39.75,116.39],[39.65,116.40],[39.5098,116.4107]];
-drawLine(m4, r4b, '#e91e63'); addDistLabel(m4, r4b, '48 km');
-fitMap(m4, ['hotel','zoo','daxingAirport']);
-
-// ===== Nav =====
-var navLinks = document.querySelectorAll('.day-nav a');
-var sections = document.querySelectorAll('.overview-section, .day-section');
-window.addEventListener('scroll', function() {
-  var cur = '';
-  for (var i = 0; i < sections.length; i++) {
-    if (window.pageYOffset >= sections[i].offsetTop - 80) cur = sections[i].id;
-  }
-  for (var j = 0; j < navLinks.length; j++) {
-    if (navLinks[j].getAttribute('href') === '#' + cur) {
-      navLinks[j].classList.add('active');
-    } else {
-      navLinks[j].classList.remove('active');
-    }
-  }
-});
 </script>
 </body>
 </html>
